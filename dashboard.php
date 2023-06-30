@@ -54,13 +54,17 @@
 
                         $id_sepatu = $_POST['id_sepatu'];
 
-                        $sql = mysqli_query($koneksi,"SELECT * FROM master_sepatu");
+                        $sql = mysqli_query($koneksi,"SELECT s.*, c.* 
+                                                      FROM master_sepatu s
+                                                      JOIN master_category c
+                                                      ON s.category_sepatu = c.category_id
+                                                      ORDER BY s.id_sepatu");
                 
                         echo "<table class='table table-striped text-center table-sm'width='100%'> ";
                             echo "<thead>";
                             echo"<tr>";
                                 echo "<th align=center>ID SEPATU</th>";
-                                echo "<th align=center>JENIS SEPATU</th>";
+                                echo "<th align=center>KATEGORI SEPATU</th>";
                                 echo "<th align=center>NAMA SEPATU</th>";
                             echo"</tr>";
                             echo "</thead>";
@@ -70,7 +74,7 @@
                             $id_sepatu = $row['id_sepatu'];
                             echo"<tr>";
                                 echo "<td align=center>".$row['id_sepatu']."</td>";
-                                echo "<td align=center>".$row['jenis_sepatu']."</td>";
+                                echo "<td align=center>".$row['category_name']."</td>";
                                 echo "<td align=center>".$row['nama_sepatu']."</td>";
                             echo"</tr>";
                         }
