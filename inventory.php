@@ -54,7 +54,7 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <br><h2>Inventory</h2><br>
                 <div class="d-flex justify-content-end">
-                    <a  class="pull-right" href='category/insert_stock.php'>
+                    <a  class="pull-right" href='inventory/insert_stock.php'>
                         <input class='btn btn-primary' type='button' name='insert_stock' value='Add Size & Stock'>
                     </a>
                 </div>
@@ -63,8 +63,6 @@
                 <?php
                         error_reporting(0);
                         include("config/koneksi.php");
-
-                        $category_id = $_POST['category_id'];
 
                         $sql = mysqli_query($koneksi,"SELECT s.*, st.*, c.*
                                                       FROM master_sepatu s
@@ -99,7 +97,7 @@
     
                                     // Update Stock
                                     echo "<td align=center>
-                                            <a href=inventory/update_stock.php?category=$sepatu_id&ukuran=$sepatu_ukuran><input class='btn btn-secondary' type='button' name='update_stock' value='Update Stock'></a>
+                                            <a href=inventory/update_stock.php?id=$sepatu_id&ukuran=$sepatu_ukuran><input class='btn btn-secondary' type='button' name='update_stock' value='Update Stock'></a>
                                         </td>";
                                 echo"</tr>";
                             }
