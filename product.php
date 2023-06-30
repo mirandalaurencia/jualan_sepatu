@@ -56,7 +56,7 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <br><h2>Master Products</h2><br>
                 <div class="d-flex justify-content-end">
-                    <a  class="pull-right" href='product.php?sepatu=insert'>
+                    <a  class="pull-right" href='insert_sepatu.php'>
                         <input class='btn btn-primary' type='button' name='insert_sepatu' value='Add Product'>
                     </a>
                 </div>
@@ -72,6 +72,7 @@
                                                       FROM master_sepatu s
                                                       JOIN master_category c
                                                       ON s.category_sepatu = c.category_id
+                                                      WHERE c.category_status = 'A'
                                                       ORDER BY s.id_sepatu");
                 
                         echo "<table class='table text-center table-striped table-sm'width='100%'> ";
@@ -80,6 +81,7 @@
                                 echo "<th align=center>ID SEPATU</th>";
                                 echo "<th align=center>KATEGORI SEPATU</th>";
                                 echo "<th align=center>NAMA SEPATU</th>";
+                                echo "<th align=center>HARGA</th>";
                                 echo"<th align=center>ACTION</th>";
                             echo"</tr>";
                             echo "</thead>";
@@ -91,35 +93,15 @@
                                 echo "<td align=center>".$row['id_sepatu']."</td>";
                                 echo "<td align=center>".$row['category_name']."</td>";
                                 echo "<td align=center>".$row['nama_sepatu']."</td>";
+                                echo "<td align=center>".$row['harga_sepatu']."</td>";
                                 echo "<td align=center>";
                                 echo "<a href=update_sepatu.php?sepatu=$id_sepatu>
-                                        <input class='btn btn-warning' type='button' name='update_sepatu' value='Update Product'></a>";
+                                        <input class='btn btn-secondary' type='button' name='update_sepatu' value='Update Product'></a>";
                                 echo "<button type='button' class='first btn btn-danger' style='margin-left:12px;' name='hapus_sepatu' value='Delete Product' onClick='delete_click($id_sepatu)'>Delete Product</button>";
                                 echo "</td>";
                             echo"</tr>";
                         }
-
                         echo "</table>";
-
-                        if (isset($_GET['sepatu']) == 'insert') {
-                            echo" <form action='insert_sepatu.php' method='POST'>
-                                ID SEPATU
-                                </br>
-                                <input type='text' name='id_sepatu'>
-                                <form action='insert_sepatu.php' method='POST'>
-                                </br>
-                                NAMA SEPATU
-                                </br>
-                                <input type='text' name='nama_sepatu'>
-                                <form action='insert_sepatu.php' method='POST'>
-                                </br>
-                                JENIS SEPATU
-                                </br>
-                                <input type='text' name='jenis_sepatu'>
-                                </br>
-                                <input type='submit' name ='simpan_sepatu' value='Simpan Sepatu'>
-                            </form>";
-                        }
                     ?>
                 </div>
             </main>
