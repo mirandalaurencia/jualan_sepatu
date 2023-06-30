@@ -84,8 +84,15 @@
                                 } else {
                                     echo "<td align=center>"."Nonactive"."</td>";
                                 }
-                                echo "<td align=center><a href=update_category.php?category=$category_id><input class='btn btn-primary' type='button' name='update_category' value='Update Category'></a>
-                                <a href=hapus_category.php?category=$category_id><input class='btn btn-danger' type='button' name='hapus_category' value='Delete Category'></a></td>";
+
+                                // Update, Change status, Delete
+                                echo "<td align=center>
+                                        <a href=../controller/update_category.php?category=$category_id><input class='btn btn-secondary' type='button' name='update_category' value='Update Category'></a>
+                                        
+                                        <a href=change_status_category.php?category=$category_id><input class='btn btn-warning' type='button' name='hapus_category' value='Change Status'></a>
+
+                                        <a href=controller/hapus_category.php?category=$category_id><input class='btn btn-danger' type='button' name='hapus_category' value='Delete Category'></a>
+                                    </td>";
                             echo"</tr>";
                         }
 
