@@ -18,6 +18,11 @@
     $sql_product = mysqli_query($koneksi,"SELECT * FROM master_sepatu");
     $count_product = mysqli_num_rows($sql_product);
 
+    # Get total inventory
+    $sql_inv = mysqli_query($koneksi,"SELECT SUM(stok) as stok FROM master_stock");
+    $count_inv = mysqli_fetch_array($sql_inv);
+    $total_stok = $count_inv['stok'];
+
     # Get customer
     $sql_customer = mysqli_query($koneksi,"SELECT * FROM master_user");
     $count_customer = mysqli_num_rows($sql_customer);
@@ -70,7 +75,7 @@
                 </div>
                 <div class="container">
                     <div class="row justify-content-md-center">
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="card" style="width: 18rem;">
                                 <img class="card-img-top" src="images/category.jpg" alt="Card image cap">
                                 <div class="card-body">
@@ -78,11 +83,11 @@
                                     <p class="card-text"><?= $count_category ?>
                                         <span><small class="text-muted">categories</small></span>
                                     </p>
-                                    <a href="#" class="btn btn-primary">Go to Category</a>
+                                    <a href="../jualan_sepatu/category.php" class="btn btn-primary">Go to Category</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="card" style="width: 18rem;">
                                 <img class="card-img-top" src="images/iconsepatu.png" alt="Card image cap" style="background-color: black;">
                                 <div class="card-body">
@@ -90,11 +95,23 @@
                                     <p class="card-text"><?= $count_product ?>
                                         <span><small class="text-muted">products</small></span>
                                     </p>
-                                    <a href="#" class="btn btn-primary">Go to Product</a>
+                                    <a href="../jualan_sepatu/product.php" class="btn btn-primary">Go to Product</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
+                            <div class="card" style="width: 18rem;">
+                                <img class="card-img-top" src="images/inventory.png" alt="Card image cap" style="background-color: black;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Inventory</h5>
+                                    <p class="card-text"><?= $total_stok ?>
+                                        <span><small class="text-muted">all stocks</small></span>
+                                    </p>
+                                    <a href="../jualan_sepatu/inventory.php" class="btn btn-primary">Go to Inventory</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
                             <div class="card" style="width: 18rem;">
                                 <img class="card-img-top" src="images/customer.jpg" alt="Card image cap">
                                 <div class="card-body">
@@ -102,7 +119,7 @@
                                     <p class="card-text"><?= $count_customer ?>
                                         <span><small class="text-muted">customers</small></span>
                                     </p>
-                                    <a href="#" class="btn btn-primary">Go to Customer</a>
+                                    <a href="../jualan_sepatu/customer.php" class="btn btn-primary">Go to Customer</a>
                                 </div>
                             </div>
                         </div>
