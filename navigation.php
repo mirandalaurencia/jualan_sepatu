@@ -35,6 +35,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link <?php if($activePage == 'inventory.php'){ echo ' active"';}?>" href="../jualan_sepatu/inventory.php">
+                            <span data-feather="grid"></span>
+                            Inventory
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link <?php if($activePage == 'customer.php'){ echo ' active"';}?>" href="../jualan_sepatu/customer.php">
                             <span data-feather="users"></span>
                             Customers

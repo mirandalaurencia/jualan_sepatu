@@ -60,8 +60,8 @@
                             echo "<thead>";
                             echo"<tr>";
                                 echo "<th align=center>ID</th>";
-                                echo "<th align=center>NAMA</th>";
-                                echo "<th align=center>ALAMAT</th>";
+                                echo "<th align=center>NAME</th>";
+                                echo "<th align=center>ADDRESS</th>";
                                 echo "<th align=center>EMAIL</th>";
                                 echo "<th align=center>STATUS</th>";
                             echo"</tr>";

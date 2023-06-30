@@ -78,10 +78,10 @@
                         echo "<table class='table text-center table-striped table-sm'width='100%'> ";
                             echo "<thead class=thead-dark>";
                             echo"<tr>";
-                                echo "<th align=center>ID SEPATU</th>";
-                                echo "<th align=center>KATEGORI SEPATU</th>";
-                                echo "<th align=center>NAMA SEPATU</th>";
-                                echo "<th align=center>HARGA</th>";
+                                echo "<th align=center>ID PRODUCT</th>";
+                                echo "<th align=center>CATEGORY</th>";
+                                echo "<th align=center>NAME</th>";
+                                echo "<th align=center>PRICE</th>";
                                 echo"<th align=center>ACTION</th>";
                             echo"</tr>";
                             echo "</thead>";

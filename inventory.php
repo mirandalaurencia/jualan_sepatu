@@ -52,52 +52,57 @@
         <div class="container-fluid">
             <!-- Main -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <br><h2>Master Categories</h2><br>
+                <br><h2>Inventory</h2><br>
                 <div class="d-flex justify-content-end">
-                    <a  class="pull-right" href='category/insert_category.php'>
-                        <input class='btn btn-primary' type='button' name='insert_category' value='Add Category'>
+                    <a  class="pull-right" href='category/insert_stock.php'>
+                        <input class='btn btn-primary' type='button' name='insert_stock' value='Add Size & Stock'>
                     </a>
                 </div>
                 <br>
                 <div class="table-responsive">
-                    <?php
+                <?php
                         error_reporting(0);
                         include("config/koneksi.php");
 
                         $category_id = $_POST['category_id'];
 
-                        $sql = mysqli_query($koneksi,"SELECT * FROM master_category");
+                        $sql = mysqli_query($koneksi,"SELECT s.*, st.*, c.*
+                                                      FROM master_sepatu s
+                                                      JOIN master_stock st
+                                                      ON s.id_sepatu = st.sepatu_id
+                                                      JOIN master_category c
+                                                      ON s.category_sepatu = c.category_id
+                                                      ORDER BY s.id_sepatu");
                 
                         echo "<table class='table text-center table-striped table-sm'width='100%'> ";
                             echo "<thead class=thead-dark>";
                             echo"<tr>";
-                                echo "<th align=center>ID CATEGORY</th>";
+                                echo "<th align=center>ID PRODUCT</th>";
                                 echo "<th align=center>NAME</th>";
-                                echo "<th align=center>STATUS CATEGORY</th>";
+                                echo "<th align=center>CATEGORY</th>";
+                                echo "<th align=center>SIZE</th>";
+                                echo "<th align=center>STOCK</th>";
                                 echo"<th align=center>ACTION</th>";
                             echo"</tr>";
                             echo "</thead>";
 
-                        while( $row = mysqli_fetch_array($sql) )
-                        {
-                            $category_id = $row['category_id'];
-                            echo"<tr>";
-                                echo "<td align=center>".$row['category_id']."</td>";
-                                echo "<td align=center>".$row['category_name']."</td>";
-                                if ($row['category_status'] == 'A') {
-                                    echo "<td align=center>"."Active"."</td>";
-                                } else {
-                                    echo "<td align=center>"."Nonactive"."</td>";
-                                }
-
-                                // Update, Change status, Delete
-                                echo "<td align=center>
-                                        <a href=category/update_category.php?category=$category_id><input class='btn btn-secondary' type='button' name='update_category' value='Update Category'></a>
-                                        
-                                        <a href=category/change_status.php?category=$category_id><input class='btn btn-warning' type='button' name='hapus_category' value='Change Status'></a>
-                                    </td>";
-                            echo"</tr>";
-                        }
+                            while( $row = mysqli_fetch_array($sql) )
+                            {
+                                $sepatu_id = $row['id_sepatu'];
+                                $sepatu_ukuran = $row['ukuran'];
+                                echo"<tr>";
+                                    echo "<td align=center>".$row['id_sepatu']."</td>";
+                                    echo "<td align=center>".$row['nama_sepatu']."</td>";
+                                    echo "<td align=center>".$row['category_name']."</td>";
+                                    echo "<td align=center>".$row['ukuran']."</td>";
+                                    echo "<td align=center>".$row['stok']."</td>";
+    
+                                    // Update Stock
+                                    echo "<td align=center>
+                                            <a href=inventory/update_stock.php?category=$sepatu_id&ukuran=$sepatu_ukuran><input class='btn btn-secondary' type='button' name='update_stock' value='Update Stock'></a>
+                                        </td>";
+                                echo"</tr>";
+                            }
                         echo "</table>";
                     ?>
                 </div>
