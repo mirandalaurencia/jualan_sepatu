@@ -2,11 +2,16 @@
     # Session start      
     session_start();
     if ($_SESSION['login'] != 'YES') {
-        header("location:dashboard.php");
+        header("location:index.php");
     }
 
     # Call file navigation to load navigation
     include 'navigation.php';
+
+    if (isset($_SESSION['message'])) {
+        echo '<script type="text/javascript">alert("' . $_SESSION['message'] . '");</script>';
+        unset($_SESSION['message']);
+    }
 ?>
 
 <!doctype html>
@@ -49,7 +54,7 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <br><h2>Master Categories</h2><br>
                 <div class="d-flex justify-content-end">
-                    <a  class="pull-right" href='category.php?category=insert'>
+                    <a  class="pull-right" href='category/insert_category.php'>
                         <input class='btn btn-primary' type='button' name='insert_category' value='Add Category'>
                     </a>
                 </div>
@@ -87,37 +92,13 @@
 
                                 // Update, Change status, Delete
                                 echo "<td align=center>
-                                        <a href=../controller/update_category.php?category=$category_id><input class='btn btn-secondary' type='button' name='update_category' value='Update Category'></a>
+                                        <a href=category/update_category.php?category=$category_id><input class='btn btn-secondary' type='button' name='update_category' value='Update Category'></a>
                                         
-                                        <a href=change_status_category.php?category=$category_id><input class='btn btn-warning' type='button' name='hapus_category' value='Change Status'></a>
-
-                                        <a href=controller/hapus_category.php?category=$category_id><input class='btn btn-danger' type='button' name='hapus_category' value='Delete Category'></a>
+                                        <a href=category/change_status.php?category=$category_id><input class='btn btn-warning' type='button' name='hapus_category' value='Change Status'></a>
                                     </td>";
                             echo"</tr>";
                         }
-
                         echo "</table>";
-
-                        if (isset($_GET['category']) == 'insert') {
-                            echo" <form action='insert_sepatu.php' method='POST'>
-                                ID SEPATU
-                                </br>
-                                <input type='text' name='category_id'>
-                                <form action='insert_sepatu.php' method='POST'>
-                                </br>
-                                NAMA SEPATU
-                                </br>
-                                <input type='text' name='nama_sepatu'>
-                                <form action='insert_sepatu.php' method='POST'>
-                                </br>
-                                JENIS SEPATU
-                                </br>
-                                <input type='text' name='jenis_sepatu'>
-                                </br>
-                                <input type='submit' name ='simpan_sepatu' value='Simpan Sepatu'>
-                                
-                            </form>";
-                        }
                     ?>
                 </div>
             </main>
