@@ -1,24 +1,38 @@
 <?php
     session_start();
     include("config/koneksi.php");
-    $id_sepatu = $_GET['sepatu'];
 
     # Call file navigation to load navigation
     include 'navigation.php';
 
-    $sql_sepatu = mysqli_query($koneksi,"SELECT * FROM master_sepatu WHERE id_sepatu = '$id_sepatu'");
-    $row_sepatu = mysqli_fetch_array($sql_sepatu);
+    if (isset($_GET['sepatu'])) {
+        $id_sepatu = $_GET['sepatu'];
+
+        $sql_sepatu = mysqli_query($koneksi,"SELECT s.*, c.* 
+                                         FROM master_sepatu s
+                                         JOIN master_category c
+                                         ON c.category_id = s.category_sepatu
+                                         WHERE s.id_sepatu = '$id_sepatu'");
+        $row_sepatu = mysqli_fetch_array($sql_sepatu);
+
+        # Get category
+        $sql_category = mysqli_query($koneksi,"SELECT * FROM master_category");
+        $row_category = mysqli_fetch_all($sql_category, MYSQLI_ASSOC);
+    }
 
     if (isset($_GET['simpan_sepatu']) == 'update_data') {
         $id_sepatu    = $_POST['id_sepatu'];
-        $jenis_sepatu = $_POST['jenis_sepatu'];
+        $jenis_sepatu = $_POST['category_sepatu'];
         $nama_sepatu  = $_POST['nama_sepatu'];
 
         $sql = mysqli_query($koneksi, "UPDATE master_sepatu
                                         SET nama_sepatu = '$nama_sepatu',
-                                            jenis_sepatu = '$jenis_sepatu'
+                                            category_sepatu = '$jenis_sepatu'
                                         WHERE id_sepatu = '$id_sepatu'");
-
+        // echo "<script>console.log(UPDATE master_sepatu
+        // SET nama_sepatu = '$nama_sepatu',
+        //     category_sepatu = '$jenis_sepatu'
+        // WHERE id_sepatu = '$id_sepatu')</script>";
         if ($sql == '1') {
             $_SESSION['message'] = "Your product has been updated.";
             header("location:product.php");
@@ -89,7 +103,11 @@
                             <td> Jenis </td>
                             <td> : </td>
                             <td>
-                                <input type='text' name='jenis_sepatu' value="<?php echo $row_sepatu['jenis_sepatu']?>">
+                                <select name='category_sepatu'>
+                                    <?php foreach($row_category as $cat) : ?>
+                                        <option value="<?= $cat['category_id']; ?>" <?= $cat['category_id'] == $row_sepatu['category_sepatu'] ? ' selected="selected"' : '';?>> <?php echo $cat['category_name']; ?> </option>
+                                    <?php endforeach ?>
+                                </select>
                             </td>
                         <tr>
                         <tr>
