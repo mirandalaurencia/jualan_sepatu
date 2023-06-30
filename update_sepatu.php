@@ -24,15 +24,14 @@
         $id_sepatu    = $_POST['id_sepatu'];
         $jenis_sepatu = $_POST['category_sepatu'];
         $nama_sepatu  = $_POST['nama_sepatu'];
+        $harga_sepatu = $_POST['harga_sepatu'];
 
         $sql = mysqli_query($koneksi, "UPDATE master_sepatu
                                         SET nama_sepatu = '$nama_sepatu',
-                                            category_sepatu = '$jenis_sepatu'
+                                            category_sepatu = '$jenis_sepatu',
+                                            harga_sepatu = $harga_sepatu
                                         WHERE id_sepatu = '$id_sepatu'");
-        // echo "<script>console.log(UPDATE master_sepatu
-        // SET nama_sepatu = '$nama_sepatu',
-        //     category_sepatu = '$jenis_sepatu'
-        // WHERE id_sepatu = '$id_sepatu')</script>";
+        
         if ($sql == '1') {
             $_SESSION['message'] = "Your product has been updated.";
             header("location:product.php");
@@ -85,7 +84,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../jualan_sepatu/product.php">Master Products</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Update Products</li>
+                        <li class="breadcrumb-item active" aria-current="page">Update Product</li>
                     </ol>
                 </nav>
                 <br>
@@ -96,18 +95,25 @@
                             <td> : </td>
                             <td>
                                 <input type='hidden' name='id_sepatu' value="<?php echo $row_sepatu['id_sepatu'] ?>">
-                                <input type='text' name='nama_sepatu' value="<?php echo $row_sepatu['nama_sepatu']?>">
+                                <input type='text' name='nama_sepatu' value="<?php echo $row_sepatu['nama_sepatu']?>" required>
                             </td>
                         <tr>
                         <tr>
                             <td> Jenis </td>
                             <td> : </td>
                             <td>
-                                <select name='category_sepatu'>
+                                <select name='category_sepatu' required>
                                     <?php foreach($row_category as $cat) : ?>
                                         <option value="<?= $cat['category_id']; ?>" <?= $cat['category_id'] == $row_sepatu['category_sepatu'] ? ' selected="selected"' : '';?>> <?php echo $cat['category_name']; ?> </option>
                                     <?php endforeach ?>
                                 </select>
+                            </td>
+                        <tr>
+                        <tr>
+                            <td> Harga </td>
+                            <td> : </td>
+                            <td>
+                                <input type='number' name='harga_sepatu' value="<?php echo $row_sepatu['harga_sepatu']?>" required>
                             </td>
                         <tr>
                         <tr>
